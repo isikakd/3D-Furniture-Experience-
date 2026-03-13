@@ -448,24 +448,10 @@ function openModal(idx) {
   document.getElementById('m-dim').textContent   = p.dim;
   document.getElementById('m-col').textContent   = p.col;
 
-  // model-viewer'a GLB yükle (data URI veya dosya adı)
+  // model-viewer src güncelle
   var mv = document.getElementById('mv');
   if (mv) {
-    var glbKey = GLB_KEYS[idx] || 'berjer';
-    var src = (window.GLB_DATA && window.GLB_DATA[glbKey])
-      ? window.GLB_DATA[glbKey]
-      : glbKey + '.glb';
-    mv.setAttribute('src', src);
-
-    // AR destekleniyor mu kontrol et
-    mv.addEventListener('ar-status', function(e) {
-      var btn = document.getElementById('ar-launch-btn');
-      var msg = document.getElementById('no-ar-msg');
-      if (e.detail.status === 'not-presenting') {
-        if (btn) btn.classList.remove('hidden');
-        if (msg) msg.classList.remove('show');
-      }
-    }, { once: false });
+    mv.setAttribute('src', 'images/' + GLB_KEYS[idx] + '.glb');
   }
 
   // Three.js modal viewer da güncelle
