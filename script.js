@@ -434,16 +434,41 @@ var PRODUCTS = [
 /* ═══════════════════════════════════════════
    MODAL / AR FONKSİYONLARI
 ═══════════════════════════════════════════ */
-function openModal(idx) {
-  var p = PRODUCTS[idx];
-  document.getElementById('m-cat').textContent = p.cat;
-  document.getElementById('m-name').textContent = p.name;
-  document.getElementById('m-price').textContent = p.price;
-  document.getElementById('m-desc').textContent = p.desc;
-  document.getElementById('m-mat').textContent = p.mat;
-  document.getElementById('m-dim').textContent = p.dim;
-  document.getElementById('m-col').textContent = p.col;
+var GLB_KEYS = ['berjer','kanepe','gardrop','yatak','masa','kitaplik'];
+var currentModalIdx = 0;
 
+function openModal(idx) {
+  currentModalIdx = idx;
+  var p = PRODUCTS[idx];
+  document.getElementById('m-cat').textContent   = p.cat;
+  document.getElementById('m-name').textContent  = p.name;
+  document.getElementById('m-price').textContent = p.price;
+  document.getElementById('m-desc').textContent  = p.desc;
+  document.getElementById('m-mat').textContent   = p.mat;
+  document.getElementById('m-dim').textContent   = p.dim;
+  document.getElementById('m-col').textContent   = p.col;
+
+  // model-viewer'a GLB yükle (data URI veya dosya adı)
+  var mv = document.getElementById('mv');
+  if (mv) {
+    var glbKey = GLB_KEYS[idx] || 'berjer';
+    var src = (window.GLB_DATA && window.GLB_DATA[glbKey])
+      ? window.GLB_DATA[glbKey]
+      : glbKey + '.glb';
+    mv.setAttribute('src', src);
+
+    // AR destekleniyor mu kontrol et
+    mv.addEventListener('ar-status', function(e) {
+      var btn = document.getElementById('ar-launch-btn');
+      var msg = document.getElementById('no-ar-msg');
+      if (e.detail.status === 'not-presenting') {
+        if (btn) btn.classList.remove('hidden');
+        if (msg) msg.classList.remove('show');
+      }
+    }, { once: false });
+  }
+
+  // Three.js modal viewer da güncelle
   if (mScene && mModel) mScene.remove(mModel);
   mRotY = 0; mRotX = 0.28; mZoom = 1;
   mModel = buildModel(idx);
@@ -458,14 +483,26 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function openAR() {
-  document.getElementById('ar-bg').classList.add('open');
-}
+function launchAR() {
+  var mv = document.getElementById('mv');
+  if (!mv) return;
 
-function closeAR() {
-  document.getElementById('ar-bg').classList.remove('open');
+  // model-viewer'ın AR modunu aktifleştir
+  if (mv.canActivateAR) {
+    mv.activateAR();
+  } else {
+    // AR desteklenmiyorsa bilgi ver
+    var msg = document.getElementById('no-ar-msg');
+    var btn = document.getElementById('ar-launch-btn');
+    if (msg) msg.classList.add('show');
+    if (btn) btn.classList.add('hidden');
+    setTimeout(function() {
+      if (msg) msg.classList.remove('show');
+      if (btn) btn.classList.remove('hidden');
+    }, 3000);
+  }
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeModal(); closeAR(); }
+  if (e.key === 'Escape') closeModal();
 });
