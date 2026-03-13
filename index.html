@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ev Atölyesi — El Yapımı Mobilya</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-in">
+    <a class="logo" href="#">Ev<span>Atölyesi</span></a>
+    <button class="hbg" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#urunler">Ürünler</a></li>
+      <li><a href="#nasil">Nasıl Çalışır</a></li>
+      <li><a href="#hakkimizda">Hakkımızda</a></li>
+      <li><a href="#iletisim" class="nav-cta">Teklif Al</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-l">
+    <p class="eyebrow">El Yapımı · Doğal Ahşap · Özel Tasarım</p>
+    <h1>Evinize <em>can</em> veren<br>mobilyalar</h1>
+    <p class="hero-sub">3D modeli döndürün, inceleyin. Satın almadan önce evinizde nasıl duracağını AR ile görün.</p>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="goTo('#urunler')">Koleksiyonu Gör</button>
+      <button class="btn-g" onclick="openAR()">📱 AR ile Dene</button>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <div class="vwrap" id="hero-viewer-wrap">
+      <canvas id="hero-canvas"></canvas>
+      <div class="vlabel"><span class="dot"></span> Sürükle &amp; Döndür</div>
+      <div class="vbtns">
+        <button onclick="heroZoom(-1)">+</button>
+        <button onclick="heroZoom(1)">−</button>
+        <button onclick="heroReset()">↺</button>
+      </div>
+    </div>
+    <div class="arstrip">
+      <span>📱 <strong>Evde Dene</strong> — Mobilyayı odanıza yerleştirin</span>
+      <button onclick="openAR()">AR Başlat</button>
+    </div>
+  </div>
+</section>
+
+<!-- NASIL ÇALIŞIR -->
+<section class="steps" id="nasil">
+  <div class="container">
+    <p class="eyebrow center">Süreç</p>
+    <h2 class="sec-title" style="text-align:center">3 adımda<br><em>hayaliniz gerçek olsun</em></h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔄</div>
+        <h3>3D İncele</h3>
+        <p>Her ürünü 360° döndürün, yakınlaştırın. Detayları gözlemleyin.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon">🏠</div>
+        <h3>Evde Dene (AR)</h3>
+        <p>Telefonunuzla odanızı tarayın, mobilyayı gerçek boyutlarıyla görün.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon">🪵</div>
+        <h3>Sipariş Ver</h3>
+        <p>Malzeme, renk ve ölçü seçin. El yapımı ürününüz kapınıza gelsin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜRÜNLER -->
+<section class="products" id="urunler">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <p class="eyebrow">Koleksiyon</p>
+        <h2 class="sec-title">Seçili <em>parçalar</em></h2>
+      </div>
+      <a href="#" class="link-arr">Tümünü Gör →</a>
+    </div>
+
+    <div class="pgrid">
+
+      <div class="pcard reveal" onclick="openModal(0)">
+        <div class="pimg">
+          <canvas class="thumb-canvas" data-idx="0"></canvas>
+          <span class="badge">Yeni</span>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Oturma Odası</span>
+          <h3>Meşe Berjer</h3>
+          <span class="pprice">₺12.500</span>
+        </div>
+      </div>
+
+      <div class="pcard reveal" onclick="openModal(1)">
+        <div class="pimg" style="background:#ede8df">
+          <canvas class="thumb-canvas" data-idx="1"></canvas>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Oturma Odası</span>
+          <h3>Ceviz Koltuk Takımı</h3>
+          <span class="pprice">₺48.900</span>
+        </div>
+      </div>
+
+      <div class="pcard reveal" onclick="openModal(2)">
+        <div class="pimg" style="background:#e8e3d8">
+          <canvas class="thumb-canvas" data-idx="2"></canvas>
+          <span class="badge pop">Popüler</span>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Yatak Odası</span>
+          <h3>Masif Gardırop</h3>
+          <span class="pprice">₺28.700</span>
+        </div>
+      </div>
+
+      <div class="pcard reveal" onclick="openModal(3)">
+        <div class="pimg" style="background:#eae5da">
+          <canvas class="thumb-canvas" data-idx="3"></canvas>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Yatak Odası</span>
+          <h3>Ahşap Başlıklı Yatak</h3>
+          <span class="pprice">₺19.200</span>
+        </div>
+      </div>
+
+      <div class="pcard reveal" onclick="openModal(4)">
+        <div class="pimg" style="background:#e5e0d5">
+          <canvas class="thumb-canvas" data-idx="4"></canvas>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Ofis</span>
+          <h3>Ceviz Çalışma Masası</h3>
+          <span class="pprice">₺15.600</span>
+        </div>
+      </div>
+
+      <div class="pcard reveal" onclick="openModal(5)">
+        <div class="pimg" style="background:#ebead5">
+          <canvas class="thumb-canvas" data-idx="5"></canvas>
+          <span class="artag">📱 AR</span>
+          <div class="phover"><button>3D Görüntüle</button></div>
+        </div>
+        <div class="pinfo">
+          <span class="pcat">Salon</span>
+          <h3>Kitaplık — Özel Ölçü</h3>
+          <span class="pprice">₺22.400</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HAKKIMIZDA -->
+<section class="about" id="hakkimizda">
+  <div class="about-in container">
+    <div class="about-txt reveal">
+      <p class="eyebrow">Hakkımızda</p>
+      <h2 class="sec-title">Ahşabın ruhunu<br><em>evinize taşıyoruz</em></h2>
+      <p>2009'dan bu yana Ankara'nın kalbinde, küçük atölyemizde her parçayı el ile yapıyoruz. Sadece sertifikalı, sürdürülebilir meşe ve ceviz kullanıyoruz.</p>
+      <ul class="about-list">
+        <li>✔ 15 yıllık deneyim</li>
+        <li>✔ 340+ tamamlanan proje</li>
+        <li>✔ %100 doğal masif ahşap</li>
+        <li>✔ 5 yıl üretici garantisi</li>
+        <li>✔ Ücretsiz montaj (Türkiye geneli)</li>
+      </ul>
+    </div>
+    <div class="about-feats reveal">
+      <div class="feat">
+        <span class="feat-icon">📐</span>
+        <div>
+          <h4>Özel Ölçü Üretim</h4>
+          <p>Evinizin her köşesine tam uyan mobilyalar tasarlıyoruz.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon">🔄</span>
+        <div>
+          <h4>360° 3D Görüntüleyici</h4>
+          <p>Satın almadan döndürün, inceleyin, karar verin.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon">🏠</span>
+        <div>
+          <h4>AR ile Evde Dene</h4>
+          <p>Telefonunuzla odanıza yerleştirin, gerçek boyutunda görün.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon">🚚</span>
+        <div>
+          <h4>Ücretsiz Montaj</h4>
+          <p>Tüm Türkiye'ye kargo ve profesyonel montaj dahil.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- İLETİŞİM -->
+<section class="contact" id="iletisim">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <p class="eyebrow">İletişim</p>
+        <h2 class="sec-title">Sizin için<br><em>buradayız</em></h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="cinfo reveal">
+        <div class="citem"><span>📍</span><div><strong>Adres</strong>Mobilyacılar Çarşısı No:42, Siteler, Ankara</div></div>
+        <div class="citem"><span>📞</span><div><strong>Telefon</strong>+90 312 XXX XX XX</div></div>
+        <div class="citem"><span>📧</span><div><strong>E-posta</strong>info@evatölyesi.com</div></div>
+        <div class="citem"><span>🕐</span><div><strong>Çalışma Saatleri</strong>Hft içi 09–18 / Cmt 10–16</div></div>
+      </div>
+      <form class="cform reveal" onsubmit="return false">
+        <div class="frow">
+          <input type="text" placeholder="Adınız Soyadınız"/>
+          <input type="tel" placeholder="Telefon"/>
+        </div>
+        <input type="email" placeholder="E-posta"/>
+        <select>
+          <option value="" disabled selected>İlgilendiğiniz ürün</option>
+          <option>Oturma Odası</option>
+          <option>Yatak Odası</option>
+          <option>Ofis Mobilyası</option>
+          <option>Özel Ölçü Sipariş</option>
+          <option>Diğer</option>
+        </select>
+        <textarea placeholder="Mesajınız…"></textarea>
+        <button type="submit" class="btn-p full">Teklif İste →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-in container">
+    <div class="fbrand">
+      <div class="logo">Ev<span>Atölyesi</span></div>
+      <p>El yapımı, doğal ahşap mobilyalar.<br>2009'dan beri Türk evlerini güzelleştiriyoruz.</p>
+    </div>
+    <div class="fcol">
+      <h5>Ürünler</h5>
+      <ul>
+        <li><a href="#">Oturma Odası</a></li>
+        <li><a href="#">Yatak Odası</a></li>
+        <li><a href="#">Ofis</a></li>
+        <li><a href="#">Özel Sipariş</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h5>Hizmetler</h5>
+      <ul>
+        <li><a href="#">AR Dene</a></li>
+        <li><a href="#">3D Görüntüle</a></li>
+        <li><a href="#">Ücretsiz Montaj</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h5>Kurumsal</h5>
+      <ul>
+        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="#">Kariyer</a></li>
+        <li><a href="#">İletişim</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot container">
+    <span>© 2024 Ev Atölyesi. Tüm hakları saklıdır.</span>
+    <span>Gizlilik · Kullanım Koşulları</span>
+  </div>
+</footer>
+
+<!-- ÜRÜN MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-viewer">
+      <canvas id="modal-canvas"></canvas>
+      <div class="modal-ar-bar">
+        <span>📱 Telefonunuzda AR ile görün</span>
+        <button onclick="openAR()">AR Başlat</button>
+      </div>
+    </div>
+    <div class="modal-info">
+      <p class="eyebrow" id="m-cat">—</p>
+      <h2 id="m-name">—</h2>
+      <p class="modal-price" id="m-price">—</p>
+      <p class="modal-desc" id="m-desc">—</p>
+      <div class="modal-specs">
+        <div class="spec"><span>Malzeme</span><strong id="m-mat">—</strong></div>
+        <div class="spec"><span>Boyutlar</span><strong id="m-dim">—</strong></div>
+        <div class="spec"><span>Renk</span><strong id="m-col">—</strong></div>
+        <div class="spec"><span>Teslimat</span><strong>3–4 Hafta</strong></div>
+      </div>
+      <div class="modal-acts">
+        <button class="btn-p full" onclick="closeModal();document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">Teklif Al →</button>
+        <button class="btn-wish">♡</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AR MODAL -->
+<div class="ar-bg" id="ar-bg">
+  <div class="ar-modal">
+    <div class="ar-icon">📱</div>
+    <h2>Evinizde Deneyin</h2>
+    <p>Telefonunuzla QR kodu okutun veya kameranızı odanıza doğrultun. Mobilyayı gerçek boyutunda görün.</p>
+    <div class="qr-box">📷</div>
+    <p class="ar-note">WebXR destekli tarayıcı gerektirir (Chrome, Safari 15+)</p>
+    <button class="btn-g" onclick="closeAR()">Kapat</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
