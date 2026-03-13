@@ -18,34 +18,23 @@
       background: transparent;
       --poster-color: transparent;
     }
-    /* AR butonu için özel stil */
-    model-viewer::part(default-ar-button) {
-      display: none; /* kendi butonumuzu kullanıyoruz */
-    }
     .mv-host {
       width: 100%; height: 100%; min-height: 300px;
       position: relative;
     }
-    .ar-launch-btn {
-      position: absolute;
-      bottom: 16px; left: 50%; transform: translateX(-50%);
-      background: #C4956A; color: #fff;
-      border: none; cursor: pointer;
-      padding: 12px 28px; font-size: 12px; letter-spacing: 2px;
-      text-transform: uppercase; font-family: 'Jost', sans-serif;
-      display: flex; align-items: center; gap: 8px;
-      white-space: nowrap; z-index: 10;
-      transition: background .3s;
+    /* model-viewer kendi AR butonunu göster ve stillendir */
+    model-viewer::part(default-ar-button) {
+      bottom: 16px;
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #C4956A !important;
+      border-radius: 0 !important;
+      padding: 12px 28px !important;
+      font-size: 12px !important;
+      letter-spacing: 2px !important;
+      text-transform: uppercase !important;
     }
-    .ar-launch-btn:hover { background: #8B6343; }
-    .ar-launch-btn.hidden { display: none; }
-    .no-ar-msg {
-      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-      background: rgba(61,43,31,.8); color: #F6F1E9;
-      font-size: 11px; padding: 8px 16px; white-space: nowrap;
-      pointer-events: none; display: none;
-    }
-    .no-ar-msg.show { display: block; }
   </style>
 </head>
 <body>
@@ -261,12 +250,15 @@
           auto-rotate
           shadow-intensity="0.8"
           exposure="0.9"
-          style="width:100%;height:100%;min-height:320px;background:transparent">
+          style="width:100%;height:100%;min-height:320px;background:#F6F1E9">
+          <button slot="ar-button" style="
+            position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+            background:#C4956A;color:#fff;border:none;cursor:pointer;
+            padding:12px 28px;font-size:12px;letter-spacing:2px;
+            text-transform:uppercase;font-family:'Jost',sans-serif;
+            white-space:nowrap;z-index:10;
+          ">📱 Odama Yerleştir (AR)</button>
         </model-viewer>
-        <button class="ar-launch-btn" id="ar-launch-btn" onclick="launchAR()">
-          📱 Odama Yerleştir (AR)
-        </button>
-        <div class="no-ar-msg" id="no-ar-msg">AR bu cihazda desteklenmiyor</div>
       </div>
       <div class="modal-ar-bar">
         <span>👆 Döndür · Yakınlaştır · AR için butona bas</span>

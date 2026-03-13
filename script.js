@@ -483,25 +483,7 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function launchAR() {
-  var mv = document.getElementById('mv');
-  if (!mv) return;
-
-  // model-viewer'ın AR modunu aktifleştir
-  if (mv.canActivateAR) {
-    mv.activateAR();
-  } else {
-    // AR desteklenmiyorsa bilgi ver
-    var msg = document.getElementById('no-ar-msg');
-    var btn = document.getElementById('ar-launch-btn');
-    if (msg) msg.classList.add('show');
-    if (btn) btn.classList.add('hidden');
-    setTimeout(function() {
-      if (msg) msg.classList.remove('show');
-      if (btn) btn.classList.remove('hidden');
-    }, 3000);
-  }
-}
+// AR: model-viewer slot="ar-button" kullanıyor
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
