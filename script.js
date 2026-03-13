@@ -366,7 +366,59 @@ document.querySelectorAll('.thumb-canvas').forEach(function(canvas) {
   })();
 });
 
-/* Modal Three.js viewer kaldırıldı */
+/* ═══════════════════════════════════════════
+   MODAL VIEWER
+═══════════════════════════════════════════ */
+var mScene = null, mModel = null, mRotY = 0, mRotX = 0.28, mZoom = 1;
+
+(function() {
+  var canvas = document.getElementById('modal-canvas');
+  if (!canvas) return;
+  var wrap = canvas.parentElement;
+
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0xF6F1E9);
+
+  mScene = new THREE.Scene();
+  mScene.background = new THREE.Color(0xF6F1E9);
+  var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  addLights(mScene);
+
+  mModel = buildModel(0);
+  mScene.add(mModel);
+
+  makeOrbit(canvas, function(dx, dy) {
+    mRotY += dx * 0.011;
+    mRotX = Math.max(-0.45, Math.min(0.75, mRotX + dy * 0.006));
+  });
+  canvas.addEventListener('wheel', function(e) {
+    mZoom = Math.max(0.5, Math.min(2.5, mZoom + e.deltaY * 0.001));
+  }, { passive: true });
+
+  function resize() {
+    var w = wrap.clientWidth, h = Math.max(wrap.clientHeight, 280);
+    if (!w) return;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+
+  (function loop() {
+    requestAnimationFrame(loop);
+    resize();
+    if (mModel) mModel.rotation.y = mRotY + performance.now() * 0.00035;
+    var r = 3.6 * mZoom;
+    camera.position.set(
+      Math.sin(mRotY) * r * Math.cos(mRotX),
+      r * Math.sin(mRotX) + 1,
+      Math.cos(mRotY) * r * Math.cos(mRotX)
+    );
+    camera.lookAt(0, 0.5, 0);
+    renderer.render(mScene, camera);
+  })();
+})();
 
 /* ═══════════════════════════════════════════
    ÜRÜN VERİLERİ
@@ -399,11 +451,13 @@ function openModal(idx) {
 
   // AR modal'daki model-viewer src güncelle
   var mv = document.getElementById('mv');
-  if (mv) {
-    mv.setAttribute('src', 'models/' + GLB_KEYS[idx] + '.glb');
-  }
-  // Güncel index'i sakla
-  window._currentARIdx = idx;
+  if (mv) mv.setAttribute('src', 'models/' + GLB_KEYS[idx] + '.glb');
+
+  // Three.js modal viewer güncelle
+  if (mScene && mModel) mScene.remove(mModel);
+  mRotY = 0; mRotX = 0.28; mZoom = 1;
+  mModel = buildModel(idx);
+  if (mScene) mScene.add(mModel);
 
   document.getElementById('modal-bg').classList.add('open');
   document.body.style.overflow = 'hidden';

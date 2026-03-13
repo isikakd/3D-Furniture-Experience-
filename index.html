@@ -232,6 +232,38 @@
   </div>
 </footer>
 
+<!-- ÜRÜN MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-viewer">
+      <div style="min-height:280px;background:#F6F1E9;display:flex;align-items:center;justify-content:center;">
+        <canvas id="modal-canvas" style="width:100%;height:280px;"></canvas>
+      </div>
+      <div class="modal-ar-bar">
+        <span>📱 AR ile odanızda görün</span>
+        <button onclick="openAR()">AR Başlat</button>
+      </div>
+    </div>
+    <div class="modal-info">
+      <p class="eyebrow" id="m-cat">—</p>
+      <h2 id="m-name">—</h2>
+      <p class="modal-price" id="m-price">—</p>
+      <p class="modal-desc" id="m-desc">—</p>
+      <div class="modal-specs">
+        <div class="spec"><span>Malzeme</span><strong id="m-mat">—</strong></div>
+        <div class="spec"><span>Boyutlar</span><strong id="m-dim">—</strong></div>
+        <div class="spec"><span>Renk</span><strong id="m-col">—</strong></div>
+        <div class="spec"><span>Teslimat</span><strong>3–4 Hafta</strong></div>
+      </div>
+      <div class="modal-acts">
+        <button class="btn-p full" onclick="closeModal();goTo('#iletisim')">Teklif Al →</button>
+        <button class="btn-wish">♡</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- AR MODAL - Sizin çalışan yapınızla birebir aynı -->
 <div id="arModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);flex-direction:column;align-items:center;justify-content:center;">
   <span onclick="closeAR()" style="position:absolute;top:20px;right:24px;color:#fff;font-size:36px;cursor:pointer;z-index:10;">×</span>
