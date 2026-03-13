@@ -454,10 +454,10 @@ function openModal(idx) {
   if (mv) mv.setAttribute('src', 'models/' + GLB_KEYS[idx] + '.glb');
 
   // Three.js modal viewer güncelle
-  if (mScene && mModel) mScene.remove(mModel);
+  if (typeof mScene !== 'undefined' && mScene && mModel) mScene.remove(mModel);
   mRotY = 0; mRotX = 0.28; mZoom = 1;
   mModel = buildModel(idx);
-  if (mScene) mScene.add(mModel);
+  if (typeof mScene !== 'undefined' && mScene) mScene.add(mModel);
 
   document.getElementById('modal-bg').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -473,19 +473,3 @@ function closeModal() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
-
-function openARModal_unused() {
-  var modal = document.getElementById('arModal');
-  if (modal) {
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeARModal_unused() {
-  var modal = document.getElementById('arModal');
-  if (modal) {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-}
