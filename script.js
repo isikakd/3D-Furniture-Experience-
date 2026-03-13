@@ -400,8 +400,10 @@ function openModal(idx) {
   // AR modal'daki model-viewer src güncelle
   var mv = document.getElementById('mv');
   if (mv) {
-    mv.setAttribute('src', 'images/' + GLB_KEYS[idx] + '.glb');
+    mv.setAttribute('src', 'models/' + GLB_KEYS[idx] + '.glb');
   }
+  // Güncel index'i sakla
+  window._currentARIdx = idx;
 
   document.getElementById('modal-bg').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -418,7 +420,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
 
-function openARModal() {
+function openARModal_unused() {
   var modal = document.getElementById('arModal');
   if (modal) {
     modal.style.display = 'flex';
@@ -426,7 +428,7 @@ function openARModal() {
   }
 }
 
-function closeARModal() {
+function closeARModal_unused() {
   var modal = document.getElementById('arModal');
   if (modal) {
     modal.style.display = 'none';
