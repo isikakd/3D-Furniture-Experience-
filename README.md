@@ -4,7 +4,8 @@ An interactive **3D and Augmented Reality furniture experience** that allows use
 The project aims to demonstrate how **AR and 3D technologies can improve the online furniture shopping experience** by letting users visualize furniture before purchasing.
 
 🔗 **Live Demo**
-https://isikakd.github.io/3D-Mobilya-Deneyimi/
+
+https://isikakd.github.io/3D-Furniture-Experience-/
 
 ---
 
@@ -38,7 +39,7 @@ This project explores how **Augmented Reality and 3D visualization** can help us
 ## 📸 Demo
 
 You can experience the project here:
-👉 https://isikakd.github.io/3D-Mobilya-Deneyimi/
+👉 https://isikakd.github.io/3D-Furniture-Experience-/
 
 ---
 
